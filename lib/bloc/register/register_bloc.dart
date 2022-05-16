@@ -1,16 +1,15 @@
-import 'package:admin_dashboard/services/local_storage.dart';
-import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
+import 'package:meta/meta.dart';
 
-part 'login_event.dart';
-part 'login_state.dart';
+part 'register_event.dart';
+part 'register_state.dart';
 
-class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginState()) {
-    on<OnValidateEvent>(_onValidateEvent);
+class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
+  RegisterBloc() : super(RegisterState()) {
+    on<OnValidateRegisterEvent>(_onValidateRegisterEvent);
   }
 
-  Future<void> _onValidateEvent(OnValidateEvent event, Emitter emit) async {
+    Future<void> _onValidateRegisterEvent(OnValidateRegisterEvent event, Emitter emit) async {
     emit(state.copyWith(
         isWorking: true,
         error: '',
@@ -18,18 +17,26 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         accion: 'OnValidateEvent'));
         String error = '';
         String campoError = '';
+        String nombre = '';
         String email= '';
         String password = '';
-        bool isLogged = false;
-        String token = 'werwerwer.werwerwerwe.werwerwer';
+        
 
-    
-    if(event.email.isEmpty){
-      error = 'Ingrese un email';
-      campoError = 'Email';
+    if(event.nombre.isEmpty || event.nombre.length < 6){
+      error = 'El nombre debe tener 6 caracteres minimo';
+      campoError = 'Nombre';
     } else {
-      email = event.email;
+      nombre = event.nombre;
     }
+    if(error.isEmpty){
+      if(event.email.isEmpty){
+        error = 'Ingrese un email';
+        campoError = 'Email';
+      } else {
+        email = event.email;
+      }
+    }
+    
 
     if(error.isEmpty){
       if(event.password.isEmpty || event.password.length < 8){
@@ -40,17 +47,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
 
-
-    if(error.isEmpty){
-      LocalStorage.prefs.setString('token', token);
-    }
-
-
-    print(error);
-
-
-
-
     emit(state.copyWith(
         isWorking: false,
         error: error,
@@ -58,12 +54,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         accion: 'OnValidateEvent',
         email: email,
         password: password,
-        isLogged: isLogged,
         ));
     }
-
-    
-  
-
-
 }

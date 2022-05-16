@@ -1,47 +1,43 @@
-part of 'login_bloc.dart';
+part of 'register_bloc.dart';
 
 @immutable
-class LoginState {
+class RegisterState {
 
   final bool isWorking;
   final String accion;
   final String error;
   final String campoError;
+  final String nombre;
   final String email;
   final String password;
-  final String token;
-  final bool isLogged;
 
-    LoginState({
+    RegisterState({
       this.isWorking = false,
       this.accion = '',
       this.error = '',
       this.campoError = '',
+      this.nombre = '',
       this.email = '',
       this.password = '',
-      this.token = '',
-      this.isLogged = false,
     });
 
-    LoginState copyWith({
+    RegisterState copyWith({
       bool? isWorking,
       String? accion,
       String? error,
       String? campoError,
+      String? nombre,
       String? email,
       String? password,
-      String? token,
-      bool? isLogged,
     }) => 
-      LoginState(
+      RegisterState(
         isWorking: isWorking ?? this.isWorking,
         accion: accion ?? this.accion,
         error: error ?? this.error,
         campoError: campoError ?? this.campoError,
+        nombre: nombre ?? this.nombre,
         email: email ?? this.email,
         password: password ?? this.password,
-        token: token ?? this.token,
-        isLogged: isLogged ?? this.isLogged,
       );
 
 
