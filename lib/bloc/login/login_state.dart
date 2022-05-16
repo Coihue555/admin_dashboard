@@ -1,6 +1,7 @@
 part of 'login_bloc.dart';
 
 @immutable
+
 class LoginState {
 
   final bool isWorking;
@@ -11,8 +12,9 @@ class LoginState {
   final String password;
   final String token;
   final bool isLogged;
+  final AuthStatus authStatus;
 
-    LoginState({
+  LoginState({
       this.isWorking = false,
       this.accion = '',
       this.error = '',
@@ -21,7 +23,8 @@ class LoginState {
       this.password = '',
       this.token = '',
       this.isLogged = false,
-    });
+      AuthStatus? authStatus,
+    }): authStatus= authStatus ?? AuthStatus.notAuthenticated;
 
     LoginState copyWith({
       bool? isWorking,
@@ -32,6 +35,7 @@ class LoginState {
       String? password,
       String? token,
       bool? isLogged,
+      AuthStatus? authStatus,
     }) => 
       LoginState(
         isWorking: isWorking ?? this.isWorking,
@@ -42,6 +46,7 @@ class LoginState {
         password: password ?? this.password,
         token: token ?? this.token,
         isLogged: isLogged ?? this.isLogged,
+        authStatus: authStatus ?? this.authStatus
       );
 
 

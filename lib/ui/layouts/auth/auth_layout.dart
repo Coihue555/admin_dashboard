@@ -1,7 +1,5 @@
-import 'package:admin_dashboard/ui/layouts/auth/widgets/backgroud_twitter.dart';
-import 'package:admin_dashboard/ui/layouts/auth/widgets/custom_title.dart';
-import 'package:admin_dashboard/ui/layouts/auth/widgets/links_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:admin_dashboard/ui/layouts/auth/widgets/widgets.dart';
 
 class AuthLayout extends StatelessWidget {
 

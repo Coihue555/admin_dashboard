@@ -1,10 +1,18 @@
-
-
 import 'package:shared_preferences/shared_preferences.dart';
 
-class LocalStorage{
-  static late SharedPreferences prefs;
+class LocalStorage {
+  static late SharedPreferences _prefs;
   static configurePrefs() async {
-    prefs = await SharedPreferences.getInstance();
+    _prefs = await SharedPreferences.getInstance();
+  }
+
+  String get token {
+    return _prefs.getString('token') ?? '';
+  }
+
+  set token(String token) {
+    if (token.isNotEmpty) {
+      _prefs.setString('token', token.trim());
+    }
   }
 }

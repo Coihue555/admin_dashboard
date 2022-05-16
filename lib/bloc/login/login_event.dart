@@ -9,3 +9,7 @@ class OnValidateEvent extends LoginEvent {
 
   OnValidateEvent({required this.email, required this.password});
 }
+
+class OnCheckLoginDataEvent extends LoginEvent{
+  OnCheckLoginDataEvent();
+}
