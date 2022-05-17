@@ -11,19 +11,12 @@ class Sidebar extends StatefulWidget {
 
 class _SidebarState extends State<Sidebar> with SingleTickerProviderStateMixin{
   
-  static late AnimationController menuController;
-
-  static Animation<double> movement = Tween<double>(begin: -200, end: 0)
-    .animate(CurvedAnimation(parent: menuController, curve: Curves.easeInOut));
-
-  static Animation<double> opacity = Tween<double>(begin: 0, end: 1)
-    .animate(CurvedAnimation(parent: menuController, curve: Curves.easeInOut));
+  
 
     
 
   @override
   void initState() {
-    menuController = AnimationController(vsync: this);
     super.initState();
   }
 
