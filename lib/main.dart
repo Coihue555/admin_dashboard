@@ -11,19 +11,23 @@ void main() async {
   }, blocObserver: SimpleBlocObserver());
   await LocalStorage.configurePrefs();
   Flurorouter.configureRoutes();
-  runApp(AppState());
+  runApp(const AppState());
 }
 
 class AppState extends StatelessWidget {
+  const AppState({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
           BlocProvider(lazy: false, create: (_) => LoginBloc()),
           BlocProvider(create: (_) => RegisterBloc()),
+          BlocProvider(create: (_) => SidemenuBloc()),
         ],
         child: Builder(builder: (context) {
-          
+          print('Ingreso');
+          context.read<LoginBloc>().add(OnCheckLoginDataEvent());
           return MyApp();
         }));
   }

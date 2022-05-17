@@ -80,7 +80,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onCheckLoginDataEvent(OnCheckLoginDataEvent event, Emitter emit) async {
+    final shp = LocalStorage();
+    
+      shp.token = 'werwerwer.werwerwerwe.werwerwer';
 
+      
+    
 
     emit(state.copyWith(
       isWorking: false,
@@ -90,8 +95,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       email: state.email,
       password: state.password,
       isLogged: state.isLogged,
-      token: state.token,
-      authStatus: state.authStatus,
+      token: shp.token,
+      authStatus: AuthStatus.authenticated,
     ));
   }
 
