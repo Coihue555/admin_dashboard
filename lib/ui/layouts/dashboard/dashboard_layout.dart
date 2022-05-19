@@ -32,8 +32,13 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
 
     final size = MediaQuery.of(context).size;
     return BlocConsumer<SidemenuBloc, SidemenuState>(
-      listener: (context, state){},
+      listener: (context, state){
+
+      },
       builder: (context, state){
+
+        (state.isOpen) ? menuController.forward() : menuController.reverse();
+
         return Scaffold(
           backgroundColor: const Color(0xffEDF1F2),
           body: Stack(
@@ -47,7 +52,12 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
                     child: Column(
                       children: [
                         NavBar(),
-                        Expanded(child: widget.child)
+                        Expanded(
+                          child: Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                            child: widget.child,
+                          )
+                        )
                       ],
                     )
                   )
@@ -57,10 +67,22 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
 
               if(size.width < 700)
                 AnimatedBuilder(
-                  animation: (state.isOpen) ? menuController.forward(): menuController.reverse();
+                  animation: menuController,
                   builder: (context, _) => Stack(
                     children: [
-                      //Container(color: Colors.black.withOpacity(0.2),),
+                      if(state.isOpen)
+                        AnimatedOpacity(
+                          opacity: opacity.value,
+                          duration: const Duration(milliseconds: 200),
+                          child: GestureDetector(
+                            child: Container(color: Colors.black26,),
+                            onTap: (){
+                              menuController.reverse();
+                              context.read<SidemenuBloc>().add(OnCloseMenu());
+                            },
+                          ),
+                        ),
+
                       Transform.translate(
                           offset: Offset(movement.value, 0),
                           child: Sidebar(),

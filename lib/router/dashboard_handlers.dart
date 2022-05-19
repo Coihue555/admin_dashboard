@@ -7,14 +7,42 @@ class DashboardHandlers {
   
   static Handler dashboard = Handler(
       handlerFunc: (context, params){
-        return BlocConsumer<LoginBloc, LoginState>(
-          listenWhen: (previous, current) => !current.isWorking,
-          listener: (context, state) {
-          },
+        return BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             if(state.authStatus == AuthStatus.authenticated){
               //NavigationService.replaceTo(Flurorouter.dashboardRoute); //era para actualizar la url pero se actualiza sola
               return DashboardView();
+            } else {
+              return LoginView();
+            }
+            
+          },
+        );
+      }
+    );
+
+  static Handler icons = Handler(
+      handlerFunc: (context, params){
+        return BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            if(state.authStatus == AuthStatus.authenticated){
+              //NavigationService.replaceTo(Flurorouter.dashboardRoute); //era para actualizar la url pero se actualiza sola
+              return IconsView();
+            } else {
+              return LoginView();
+            }
+            
+          },
+        );
+      }
+    );
+
+    static Handler blank = Handler(
+      handlerFunc: (context, params){
+        return BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            if(state.authStatus == AuthStatus.authenticated){
+              return BlankView();
             } else {
               return LoginView();
             }

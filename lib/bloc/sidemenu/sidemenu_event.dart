@@ -10,3 +10,8 @@ class OnOpenMenu extends SidemenuEvent{
 class OnCloseMenu extends SidemenuEvent{
   OnCloseMenu();
 }
+
+class OnCurrentPage extends SidemenuEvent{
+  final String currentPage;
+  OnCurrentPage({required this.currentPage});
+}

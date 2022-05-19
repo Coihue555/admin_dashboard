@@ -15,4 +15,17 @@ class LocalStorage {
       _prefs.setString('token', token.trim());
     }
   }
+
+  String get currentPage {
+    return _prefs.getString('currentPage') ?? '';
+  }
+
+  set currentPage(String currentPage) {
+    if (currentPage.isNotEmpty) {
+      _prefs.setString('currentPage', currentPage.trim());
+    }
+  }
+
+
+
 }

@@ -1,7 +1,7 @@
-import 'package:admin_dashboard/router/router.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:admin_dashboard/router/router.dart';
+import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/services/local_storage.dart';
 
 part 'login_event.dart';
@@ -63,8 +63,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
     NavigationService.replaceTo(Flurorouter.dashboardRoute);
 
-    // await Future.delayed(Duration(seconds: 4));
-    print(error);
 
     emit(state.copyWith(
       isWorking: false,
