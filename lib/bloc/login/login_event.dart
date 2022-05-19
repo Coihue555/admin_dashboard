@@ -13,3 +13,7 @@ class OnValidateEvent extends LoginEvent {
 class OnCheckLoginDataEvent extends LoginEvent{
   OnCheckLoginDataEvent();
 }
+
+class OnLogoutEvent extends LoginEvent{
+  OnLogoutEvent();
+}

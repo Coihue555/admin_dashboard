@@ -1,5 +1,10 @@
 import 'package:bloc/bloc.dart';
+import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
+import 'package:admin_dashboard/bloc/blocs.dart';
+import 'package:admin_dashboard/api/cafeApi.dart';
+import 'package:admin_dashboard/models/http/auth_response.dart';
+import 'package:admin_dashboard/services/services.dart';
 
 part 'register_event.dart';
 part 'register_state.dart';
@@ -20,6 +25,9 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         String nombre = '';
         String email= '';
         String password = '';
+        Usuario user;
+        final shp = LocalStorage();
+
         
 
     if(event.nombre.isEmpty || event.nombre.length < 6){
@@ -47,11 +55,35 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
       }
     }
 
+
+    if(error.isEmpty){
+      final data = {
+        'nombre': nombre,
+        'correo': email,
+        'password': password,
+      };
+
+      CafeApi.post('/usuarios', data).then(
+          (json) {
+            print(json);
+            final authResponse = AuthResponse.fromMap(json);
+            user = authResponse.usuario;
+            shp.token = authResponse.token;
+          }
+        ).catchError( (e) {
+            print('error en: $e');
+            NotificationsService.showSnackbarError('Usuario / Password no valido');
+          } );
+    }
+
+
+
     emit(state.copyWith(
         isWorking: false,
         error: error,
         campoError: campoError,
         accion: 'OnValidateEvent',
+        nombre: nombre,
         email: email,
         password: password,
         ));

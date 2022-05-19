@@ -82,17 +82,13 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
                             },
                           ),
                         ),
-
                       Transform.translate(
                           offset: Offset(movement.value, 0),
                           child: Sidebar(),
                         )
-                      
                     ],
                   )
                 )
-              
-
             ],
           )
         );

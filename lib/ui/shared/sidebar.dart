@@ -1,10 +1,10 @@
 // ignore_for_file: avoid_print
-import 'package:admin_dashboard/services/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:admin_dashboard/bloc/blocs.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/shared/widgets.dart';
+import 'package:admin_dashboard/services/services.dart';
 
 class Sidebar extends StatefulWidget {
 
@@ -79,6 +79,7 @@ class _SidebarState extends State<Sidebar> {
           CustomMenuItem(
             text: 'Logout', icon: Icons.list_alt_outlined, onPressed: () {
             context.read<SidemenuBloc>().add(OnCloseMenu());
+            context.read<LoginBloc>().add(OnLogoutEvent());
           },),
 
         ],

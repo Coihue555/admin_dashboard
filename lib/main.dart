@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:admin_dashboard/bloc/blocs.dart';
+import 'package:admin_dashboard/api/cafeApi.dart';
 import 'package:admin_dashboard/services/services.dart';
 import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/layouts/layouts.dart';
@@ -10,6 +11,7 @@ void main() async {
     runApp(AppState());
   }, blocObserver: SimpleBlocObserver());
   await LocalStorage.configurePrefs();
+  CafeApi.configureDio();
   Flurorouter.configureRoutes();
   runApp(const AppState());
 }
@@ -22,8 +24,8 @@ class AppState extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(lazy: false, create: (_) => LoginBloc()),
-          BlocProvider(create: (_) => RegisterBloc()),
-          BlocProvider(create: (_) => SidemenuBloc()),
+          BlocProvider(lazy: false, create: (_) => RegisterBloc()),
+          BlocProvider(lazy: false, create: (_) => SidemenuBloc()),
         ],
         child: Builder(builder: (context) {
           print('Ingreso');
@@ -42,6 +44,7 @@ class MyApp extends StatelessWidget {
         initialRoute: '/',
         onGenerateRoute: Flurorouter.router.generator,
         navigatorKey: NavigationService.navigatorKey,
+        scaffoldMessengerKey: NotificationsService.messengerKey,
         builder: (_, child) {
           return BlocBuilder<LoginBloc, LoginState>(
             builder: (context, state) {

@@ -5,7 +5,6 @@ import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/buttons/links_text.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class RegisterView extends StatefulWidget {
   @override

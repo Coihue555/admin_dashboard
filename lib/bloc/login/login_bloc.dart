@@ -1,8 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:bloc/bloc.dart';
+import 'package:admin_dashboard/api/cafeApi.dart';
+import 'package:admin_dashboard/models/http/auth_response.dart';
 import 'package:admin_dashboard/router/router.dart';
-import 'package:admin_dashboard/services/navigation_service.dart';
-import 'package:admin_dashboard/services/local_storage.dart';
+import 'package:admin_dashboard/services/services.dart';
 
 part 'login_event.dart';
 part 'login_state.dart';
@@ -13,6 +14,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   LoginBloc() : super(LoginState()) {
     on<OnValidateEvent>(_onValidateEvent);
     on<OnCheckLoginDataEvent>(_onCheckLoginDataEvent);
+    on<OnLogoutEvent>(_onLogoutEvent);
   }
 
   Future<void> _onValidateEvent(OnValidateEvent event, Emitter emit) async {
@@ -51,10 +53,23 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     }
 
     if (error.isEmpty) {
-      shp.token = 'werwerwer.werwerwerwe.werwerwer';
+      final data = {
+        'correo': email,
+        'password': password,
+      };
+      CafeApi.post('/usuarios', data).then(
+          (json) {
+            print(json);
+            final authResponse = AuthResponse.fromMap(json);
+            shp.token = authResponse.token;
+          }
+        ).catchError( (e) => print('error en: $e') );
+    }
 
       token = shp.token;
-    }
+    
+
+
     if (token.isNotEmpty) {
       authStatus = AuthStatus.authenticated;
     } else {
@@ -80,10 +95,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _onCheckLoginDataEvent(OnCheckLoginDataEvent event, Emitter emit) async {
     final shp = LocalStorage();
     
-      shp.token = 'werwerwer.werwerwerwe.werwerwer';
-
-      
-    
+      shp.token = '';
 
     emit(state.copyWith(
       isWorking: false,
@@ -95,6 +107,25 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       isLogged: state.isLogged,
       token: shp.token,
       authStatus: AuthStatus.authenticated,
+    ));
+  }
+
+
+  Future<void> _onLogoutEvent(OnLogoutEvent event, Emitter emit) async {
+
+    final shp = LocalStorage();
+    shp.token = '';
+    
+    emit(state.copyWith(
+      isWorking: false,
+      error: '',
+      campoError: 'Logout',
+      accion: 'OnLogoutEvent',
+      email: '',
+      password: '',
+      isLogged: false,
+      token: '',
+      authStatus: AuthStatus.notAuthenticated,
     ));
   }
 
