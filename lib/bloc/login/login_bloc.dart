@@ -34,7 +34,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     String password = '';
     bool isLogged = false;
     String token = '';
-    AuthStatus authStatus = AuthStatus.authenticated;
+    AuthStatus authStatus;
+    
 
     if (event.email.isEmpty) {
       error = 'Ingrese un email';
@@ -52,32 +53,38 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       }
     }
 
-    if (error.isEmpty) {
-      final data = {
-        'correo': email,
-        'password': password,
-      };
-      CafeApi.post('/usuarios', data).then(
-          (json) {
-            print(json);
-            final authResponse = AuthResponse.fromMap(json);
-            shp.token = authResponse.token;
-          }
-        ).catchError( (e) => print('error en: $e') );
-    }
-
-      token = shp.token;
-    
+    final data = {
+      'correo': email,
+      'password': password,
+    };
 
 
-    if (token.isNotEmpty) {
+  CafeApi.post('/auth/login', data).then(
+      (json) {
+        print(json);
+        final authResponse = AuthResponse.fromMap(json);
+        LocalStorage().token = authResponse.token;
+        shp.userName = authResponse.usuario.nombre;
+        email = authResponse.usuario.correo;
+        print(LocalStorage().token);
+      }
+    ).catchError( (e) {
+        print('error en: $e');
+        error = 'Algo fallo en el postRequest';
+        campoError = 'http'; 
+      } );
+
+    token = LocalStorage().token;
+    if(error.isEmpty) {
       authStatus = AuthStatus.authenticated;
+      NavigationService.replaceTo(Flurorouter.dashboardRoute);
     } else {
       authStatus = AuthStatus.notAuthenticated;
+      NavigationService.replaceTo(Flurorouter.dashboardRoute);
+      NotificationsService.showSnackbarError('Usuario o contraseña invalidos');
     }
 
-    NavigationService.replaceTo(Flurorouter.dashboardRoute);
-
+    CafeApi.configureDio();
 
     emit(state.copyWith(
       isWorking: false,
@@ -93,28 +100,45 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   }
 
   Future<void> _onCheckLoginDataEvent(OnCheckLoginDataEvent event, Emitter emit) async {
-    final shp = LocalStorage();
     
-      shp.token = '';
+    AuthStatus authStatus = state.authStatus;
+    Usuario user;
+    String email;
+    String currentPage = LocalStorage().currentPage;
+
+    try {
+      final resp = await CafeApi.httpGet('/auth');
+      final authResponse = AuthResponse.fromMap(resp);
+      user = authResponse.usuario;
+      email = authResponse.usuario.correo;
+      authStatus = AuthStatus.authenticated;
+      LocalStorage.prefs.setString('currentPage', currentPage);
+
+    } catch (e) {
+      print(e);
+      authStatus = AuthStatus.notAuthenticated;
+      email = '';
+    }
+  
+    CafeApi.configureDio();
+    
 
     emit(state.copyWith(
       isWorking: false,
-      error: state.error,
-      campoError: state.campoError,
       accion: 'OnCheckLoginDataEvent',
-      email: state.email,
-      password: state.password,
-      isLogged: state.isLogged,
-      token: shp.token,
-      authStatus: AuthStatus.authenticated,
+      authStatus: authStatus,
+      email: email,
     ));
   }
 
 
   Future<void> _onLogoutEvent(OnLogoutEvent event, Emitter emit) async {
 
-    final shp = LocalStorage();
-    shp.token = '';
+    
+    LocalStorage.prefs.remove('token');
+    LocalStorage.prefs.remove('userName');
+    LocalStorage.prefs.remove('currentPage');
+    
     
     emit(state.copyWith(
       isWorking: false,

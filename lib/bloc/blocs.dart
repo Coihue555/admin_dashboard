@@ -1,3 +1,4 @@
+export 'package:admin_dashboard/bloc/categories/categories_bloc.dart';
 export 'package:admin_dashboard/bloc/sidemenu/sidemenu_bloc.dart';
 export 'package:admin_dashboard/bloc/login/login_bloc.dart';
 export 'package:admin_dashboard/bloc/register/register_bloc.dart';

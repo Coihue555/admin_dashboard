@@ -10,7 +10,6 @@ class DashboardHandlers {
         return BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             if(state.authStatus == AuthStatus.authenticated){
-              //NavigationService.replaceTo(Flurorouter.dashboardRoute); //era para actualizar la url pero se actualiza sola
               return DashboardView();
             } else {
               return LoginView();
@@ -26,7 +25,6 @@ class DashboardHandlers {
         return BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             if(state.authStatus == AuthStatus.authenticated){
-              //NavigationService.replaceTo(Flurorouter.dashboardRoute); //era para actualizar la url pero se actualiza sola
               return IconsView();
             } else {
               return LoginView();
@@ -43,6 +41,21 @@ class DashboardHandlers {
           builder: (context, state) {
             if(state.authStatus == AuthStatus.authenticated){
               return BlankView();
+            } else {
+              return LoginView();
+            }
+            
+          },
+        );
+      }
+    );
+
+    static Handler categories = Handler(
+      handlerFunc: (context, params){
+        return BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            if(state.authStatus == AuthStatus.authenticated){
+              return CategoriesView();
             } else {
               return LoginView();
             }

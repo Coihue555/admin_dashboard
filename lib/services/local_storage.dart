@@ -26,6 +26,16 @@ class LocalStorage {
     }
   }
 
+    String get userName {
+    return prefs.getString('userName') ?? '';
+  }
+
+  set userName(String userName) {
+    if (userName.isNotEmpty) {
+      prefs.setString('userName', userName.trim());
+    }
+  }
+
 
 
 }

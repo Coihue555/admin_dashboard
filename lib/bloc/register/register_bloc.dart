@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:meta/meta.dart';
 import 'package:admin_dashboard/bloc/blocs.dart';
 import 'package:admin_dashboard/api/cafeApi.dart';
 import 'package:admin_dashboard/models/http/auth_response.dart';
@@ -27,6 +26,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         String password = '';
         Usuario user;
         final shp = LocalStorage();
+        shp.currentPage = '';
 
         
 
@@ -67,7 +67,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           (json) {
             print(json);
             final authResponse = AuthResponse.fromMap(json);
-            user = authResponse.usuario;
+            shp.userName = authResponse.usuario.nombre;
             shp.token = authResponse.token;
           }
         ).catchError( (e) {
@@ -76,7 +76,7 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
           } );
     }
 
-
+    CafeApi.configureDio;
 
     emit(state.copyWith(
         isWorking: false,

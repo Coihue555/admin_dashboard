@@ -31,14 +31,9 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
   Widget build(BuildContext context) {
 
     final size = MediaQuery.of(context).size;
-    return BlocConsumer<SidemenuBloc, SidemenuState>(
-      listener: (context, state){
-
-      },
+    return BlocBuilder<SidemenuBloc, SidemenuState>(
       builder: (context, state){
-
         (state.isOpen) ? menuController.forward() : menuController.reverse();
-
         return Scaffold(
           backgroundColor: const Color(0xffEDF1F2),
           body: Stack(
@@ -47,7 +42,6 @@ class _DashboardLayoutState extends State<DashboardLayout> with SingleTickerProv
                 children: [
                   if(size.width >= 700)
                     Sidebar(),
-                    
                   Expanded(
                     child: Column(
                       children: [

@@ -26,6 +26,7 @@ class AppState extends StatelessWidget {
           BlocProvider(lazy: false, create: (_) => LoginBloc()),
           BlocProvider(lazy: false, create: (_) => RegisterBloc()),
           BlocProvider(lazy: false, create: (_) => SidemenuBloc()),
+          BlocProvider(lazy: false, create: (_) => CategoriesBloc()),
         ],
         child: Builder(builder: (context) {
           print('Ingreso');

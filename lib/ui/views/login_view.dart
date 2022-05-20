@@ -24,19 +24,7 @@ class _LoginViewState extends State<LoginView> {
         BlocListener<LoginBloc, LoginState>(
           listenWhen: (previous, current) => !current.isWorking,
           listener: (context, state) {
-            if (state.error.isNotEmpty) {
-              final snackBar = SnackBar(
-                duration: const Duration(milliseconds: 2000),
-                content: Text(state.error),
-                backgroundColor: Colors.red,
-                action: SnackBarAction(            
-                    label: 'Ok',
-                    onPressed: () {},
-                  ),
-              );
-              //ScaffoldMessenger.of(context).hideCurrentSnackBar();
-              ScaffoldMessenger.of(context).showSnackBar(snackBar);
-            }
+            
             if(state.error.isEmpty && state.isLogged){
               print('Logueado');
             }
@@ -126,4 +114,7 @@ class _LoginViewState extends State<LoginView> {
       hintStyle: const TextStyle(color: Colors.grey),
     );
   }
+
+
+
 }

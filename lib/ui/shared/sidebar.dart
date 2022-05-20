@@ -43,8 +43,10 @@ class _SidebarState extends State<Sidebar> {
           CustomMenuItem(text: 'Analytics', icon: Icons.show_chart_outlined, onPressed: () {
             context.read<SidemenuBloc>().add(OnCloseMenu());
           },),
-          CustomMenuItem(text: 'Categories', icon: Icons.layers_outlined, onPressed: () {
-            context.read<SidemenuBloc>().add(OnCloseMenu());
+          CustomMenuItem(
+            isActive: LocalStorage().currentPage == Flurorouter.categoriesRoute,
+            text: 'Categories', icon: Icons.layers_outlined, onPressed: () {
+            context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.categoriesRoute));
           },),
           CustomMenuItem(text: 'Products', icon: Icons.dashboard_outlined, onPressed: () {
             context.read<SidemenuBloc>().add(OnCloseMenu());
