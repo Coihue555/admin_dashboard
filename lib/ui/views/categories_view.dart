@@ -39,7 +39,7 @@ class _CategoriesViewState extends State<CategoriesView> {
                 DataColumn(label: Text('Creado por')),
                 DataColumn(label: Text('Acciones')),
               ],
-              source: CategoriesDTS( categorias),
+              source: CategoriesDTS( categorias, context),
               header: const FittedBox(
                 fit: BoxFit.contain,
                 child: Text('Esta es la lista de todas las categorias disponibles', maxLines: 2,),
