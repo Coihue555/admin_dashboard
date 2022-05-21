@@ -28,7 +28,7 @@ class CustomIconButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all(color.withOpacity(0.5)),
         overlayColor: MaterialStateProperty.all(color.withOpacity(0.3)),
       ),
-      onPressed: () => onPressed,
+      onPressed: () => onPressed(),
       child: Row(
         children: [
           Icon(icon, color: Colors.white),

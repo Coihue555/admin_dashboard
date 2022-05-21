@@ -12,6 +12,7 @@ class DashboardView extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       builder: (context, state) {
         return Container(
+          padding: const EdgeInsets.symmetric( horizontal: 20, vertical: 10),
           child: ListView(
             physics: const ClampingScrollPhysics(),
             children: [

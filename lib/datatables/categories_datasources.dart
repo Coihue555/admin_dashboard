@@ -1,7 +1,8 @@
-
-
-import 'package:admin_dashboard/models/category.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:admin_dashboard/bloc/blocs.dart';
+import 'package:admin_dashboard/models/category.dart';
+import 'package:admin_dashboard/ui/modals/category_modal.dart';
 
 class CategoriesDTS extends DataTableSource{
 
@@ -26,14 +27,39 @@ class CategoriesDTS extends DataTableSource{
             IconButton(
               icon: const Icon(Icons.edit_outlined),
               onPressed: (){
-                print('Editando: $categoria');
+                showModalBottomSheet(
+                  backgroundColor: Colors.transparent,
+                  context: context,
+                  builder: ( _ ) => CategoryModal(categoria: categoria),
+                );
               }, 
             ),
             IconButton(
               icon: Icon(Icons.delete_outline, color: Colors.red[400],),
               onPressed: (){
                 final dialog = AlertDialog(
-                  title: Text('Esta seguro de borrarlo?')
+                  title: const Text('¿Esta seguro de borrarlo?'),
+                  content: Text('¿Borrar definitivamente ${categoria.nombre}?'),
+                  actions: [
+                    TextButton(
+                      child: const Text('No'),
+                      onPressed: (){
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    TextButton(
+                      child: const Text('Si, borrar'),
+                      onPressed: () async {
+                        context.read<CategoriesBloc>().add(OnDeleteCategoryEvent(id: categoria.id));
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                  ],
+                );
+
+                showDialog(
+                  context: context,
+                  builder: ( _ ) => dialog
                 );
               }, 
             ),
