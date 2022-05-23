@@ -17,7 +17,8 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   Future<void> _onGetUsersEvent (OnGetUsersEvent event, Emitter emit) async {
 
     emit(state.copyWith(
-      isLoading: true
+      isLoading: true,
+      isWorking: true
     ));
     
 
@@ -26,6 +27,7 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
 
     emit(state.copyWith(
       isLoading: false,
+      isWorking: false,
       users: [... userResp.usuarios],
     ));
     
@@ -34,15 +36,26 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
   Future<void> _onGetUserByIdEvent (OnGetUserByIdEvent event, Emitter emit) async {
 
     emit(state.copyWith(
-      isLoading: true
-    ));
+        isLoading: true,
+        isWorking: true,
+        accion: 'OnGetUserByIdEvent'
+      ));
     
+    final List<Usuario> finalUsers = [];
+    final String uid = event.uid;
 
+      final resp = await CafeApi.httpGet('/usuarios/${uid}');
+      final user = Usuario.fromMap(resp);
+      print(user.nombre);
 
-    emit(state.copyWith(
-      isLoading: false,
-    ));
-    
+      finalUsers.add(user);
+      
+      emit(state.copyWith(
+        isLoading: false,
+        users: finalUsers,
+        isWorking: false,
+        accion: 'OnGetUserByIdEvent'
+      ));
   }
 
 

@@ -1,6 +1,9 @@
+import 'package:admin_dashboard/bloc/blocs.dart';
+import 'package:admin_dashboard/router/router.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_dashboard/services/navigation_service.dart';
 import 'package:admin_dashboard/models/usuario.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UsersDataSource extends DataTableSource{
 
@@ -30,7 +33,10 @@ class UsersDataSource extends DataTableSource{
             IconButton(
               icon: const Icon(Icons.edit_outlined),
               onPressed: (){
+                context.read<UsersBloc>().add(OnGetUserByIdEvent(uid: user.uid));
                 NavigationService.replaceTo('/dashboard/users/${user.uid}');
+                //context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.userRoute));
+                //TODO: cuando recargo la pagina no queda guardado el id de usuario/la pagina
               },
             ),
             IconButton(
