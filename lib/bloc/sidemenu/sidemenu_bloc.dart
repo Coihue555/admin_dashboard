@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
-import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/services.dart';
 
 part 'sidemenu_event.dart';
@@ -48,7 +47,7 @@ class SidemenuBloc extends Bloc<SidemenuEvent, SidemenuState> {
     shp.currentPage = event.currentPage;
 
     
-    NavigationService.navigateTo(shp.currentPage);
+    NavigationService.replaceTo(shp.currentPage);
     add(OnCloseMenu());
 
     emit(state.copyWith(

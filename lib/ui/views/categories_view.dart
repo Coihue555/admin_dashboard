@@ -1,7 +1,6 @@
-import 'package:admin_dashboard/models/category.dart';
-import 'package:admin_dashboard/ui/modals/category_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:admin_dashboard/ui/modals/category_modal.dart';
 import 'package:admin_dashboard/bloc/blocs.dart';
 import 'package:admin_dashboard/ui/buttons/custom_icon_button.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';

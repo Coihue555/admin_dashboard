@@ -104,7 +104,7 @@ class _RegisterViewState extends State<RegisterView> {
                       LinkText(
                         texto: 'Ya tienes una cuenta?',
                         onPressed: () {
-                          Navigator.pushNamed(context, Flurorouter.loginRoute);
+                          Navigator.pushReplacementNamed(context, Flurorouter.loginRoute);
                         },
                       )
                     ],

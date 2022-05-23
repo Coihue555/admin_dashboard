@@ -1,6 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:admin_dashboard/bloc/blocs.dart';
+import 'package:bloc/bloc.dart';
 import 'package:admin_dashboard/api/cafeApi.dart';
 import 'package:admin_dashboard/models/http/auth_response.dart';
 import 'package:admin_dashboard/services/services.dart';
@@ -24,7 +23,6 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
         String nombre = '';
         String email= '';
         String password = '';
-        Usuario user;
         final shp = LocalStorage();
         shp.currentPage = '';
 

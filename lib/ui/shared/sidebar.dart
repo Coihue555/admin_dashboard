@@ -54,8 +54,10 @@ class _SidebarState extends State<Sidebar> {
           CustomMenuItem(text: 'Discount', icon: Icons.attach_money_outlined, onPressed: () {
             context.read<SidemenuBloc>().add(OnCloseMenu());
           },),
-          CustomMenuItem(text: 'Customers', icon: Icons.people_alt_outlined, onPressed: () {
-            context.read<SidemenuBloc>().add(OnCloseMenu());
+          CustomMenuItem(
+            isActive: LocalStorage().currentPage == Flurorouter.usersRoute,
+            text: 'Users', icon: Icons.people_alt_outlined, onPressed: () {
+            context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.usersRoute));
           },),
           const SizedBox(height: 30,),
           const TextSeparator(text: 'UI Elements'),

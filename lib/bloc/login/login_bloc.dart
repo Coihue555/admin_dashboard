@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/models/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:admin_dashboard/api/cafeApi.dart';

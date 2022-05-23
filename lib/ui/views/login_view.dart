@@ -78,7 +78,7 @@ class _LoginViewState extends State<LoginView> {
                       LinkText(
                         texto: 'Nueva cuenta',
                         onPressed: () {
-                          Navigator.pushNamed(context, Flurorouter.registerRoute);
+                          Navigator.pushReplacementNamed(context, Flurorouter.registerRoute);
                         },
                       ),
                     ],

@@ -1,13 +1,11 @@
-import 'dart:ui';
-
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:admin_dashboard/bloc/blocs.dart';
 import 'package:admin_dashboard/models/category.dart';
 import 'package:admin_dashboard/services/notifications_service.dart';
 import 'package:admin_dashboard/ui/buttons/custom_outlined_button.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CategoryModal extends StatefulWidget {
 
