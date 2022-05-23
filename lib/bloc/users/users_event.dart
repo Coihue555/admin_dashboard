@@ -7,6 +7,11 @@ class OnGetUsersEvent extends UsersEvent{
   OnGetUsersEvent();
 }
 
+class OnGetUserByIdEvent extends UsersEvent{
+  final String uid;
+  OnGetUserByIdEvent({required this.uid});
+}
+
 class OnSortEvent extends UsersEvent{
   OnSortEvent();
 }

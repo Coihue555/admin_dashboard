@@ -14,7 +14,7 @@ class LoginState {
   final bool isLogged;
   final AuthStatus authStatus;
 
-  LoginState({
+  const LoginState({
       this.isWorking = false,
       this.accion = '',
       this.error = '',

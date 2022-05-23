@@ -14,7 +14,7 @@ class LinksBar extends StatelessWidget {
       child: Wrap(
         alignment: WrapAlignment.center,
         children:  [
-          LinkText( texto: 'About', onPressed: () => print('about')),
+          LinkText( texto: 'About', onPressed: () {}),
           const LinkText( texto: 'Help Center'),
           const LinkText( texto: 'Terms of Service'),
           const LinkText( texto: 'Carrers'),

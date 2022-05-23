@@ -8,7 +8,7 @@ import 'package:admin_dashboard/ui/layouts/layouts.dart';
 
 void main() async {
   BlocOverrides.runZoned(() async {
-    runApp(AppState());
+    runApp(const AppState());
   }, blocObserver: SimpleBlocObserver());
   await LocalStorage.configurePrefs();
   CafeApi.configureDio();

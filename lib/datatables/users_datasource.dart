@@ -1,5 +1,6 @@
-import 'package:admin_dashboard/models/usuario.dart';
 import 'package:flutter/material.dart';
+import 'package:admin_dashboard/services/navigation_service.dart';
+import 'package:admin_dashboard/models/usuario.dart';
 
 class UsersDataSource extends DataTableSource{
 
@@ -29,15 +30,14 @@ class UsersDataSource extends DataTableSource{
             IconButton(
               icon: const Icon(Icons.edit_outlined),
               onPressed: (){
-                
-              }, 
+                NavigationService.replaceTo('/dashboard/users/${user.uid}');
+              },
             ),
             IconButton(
               icon: Icon(Icons.delete_outline, color: Colors.red[400],),
               onPressed: (){
                 final dialog = AlertDialog(
                   title: const Text('¿Esta seguro de borrarlo?'),
-                  //content: Text('¿Borrar definitivamente ${users.id}?'),
                   actions: [
                     TextButton(
                       child: const Text('No'),

@@ -1,3 +1,4 @@
+export 'package:admin_dashboard/ui/views/user_view.dart';
 export 'package:admin_dashboard/ui/views/users_views.dart';
 export 'package:admin_dashboard/ui/views/categories_view.dart';
 export 'package:admin_dashboard/ui/views/icons_view.dart';

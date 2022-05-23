@@ -12,7 +12,7 @@ part 'login_state.dart';
 enum AuthStatus { checking, authenticated, notAuthenticated }
 
 class LoginBloc extends Bloc<LoginEvent, LoginState> {
-  LoginBloc() : super(LoginState()) {
+  LoginBloc() : super(const LoginState()) {
     on<OnValidateEvent>(_onValidateEvent);
     on<OnCheckLoginDataEvent>(_onCheckLoginDataEvent);
     on<OnLogoutEvent>(_onLogoutEvent);
@@ -62,15 +62,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
 
   CafeApi.post('/auth/login', data).then(
       (json) {
-        print(json);
         final authResponse = AuthResponse.fromMap(json);
         LocalStorage().token = authResponse.token;
         shp.userName = authResponse.usuario.nombre;
         email = authResponse.usuario.correo;
-        print(LocalStorage().token);
       }
     ).catchError( (e) {
-        print('error en: $e');
         error = 'Algo fallo en el postRequest';
         campoError = 'http'; 
       } );

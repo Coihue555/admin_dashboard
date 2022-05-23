@@ -10,6 +10,7 @@ part 'users_state.dart';
 class UsersBloc extends Bloc<UsersEvent, UsersState> {
   UsersBloc() : super(UsersState()) {
     on<OnGetUsersEvent>(_onGetUsersEvent);
+    on<OnGetUserByIdEvent>(_onGetUserByIdEvent);
     //on<OnSortEvent>(_onSortEvent);
   }
 
@@ -29,6 +30,21 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
     ));
     
   }
+
+  Future<void> _onGetUserByIdEvent (OnGetUserByIdEvent event, Emitter emit) async {
+
+    emit(state.copyWith(
+      isLoading: true
+    ));
+    
+
+
+    emit(state.copyWith(
+      isLoading: false,
+    ));
+    
+  }
+
 
 
   // Future<void> _onSortEvent(OnSortEvent event, Emitter emit){

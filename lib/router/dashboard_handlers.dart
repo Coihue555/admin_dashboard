@@ -80,4 +80,24 @@ class DashboardHandlers {
       }
     );
 
+    static Handler user = Handler(
+      handlerFunc: (context, params){
+        return BlocBuilder<LoginBloc, LoginState>(
+          builder: (context, state) {
+            if(state.authStatus == AuthStatus.authenticated){
+              print(params);
+              if (params['uid']?.first != null){
+              return UserView(uid: params['uid']!.first);
+              } else{
+                return UsersView();
+              }
+            } else {
+              return LoginView();
+            }
+            
+          },
+        );
+      }
+    );
+
 }

@@ -63,13 +63,11 @@ class RegisterBloc extends Bloc<RegisterEvent, RegisterState> {
 
       CafeApi.post('/usuarios', data).then(
           (json) {
-            print(json);
             final authResponse = AuthResponse.fromMap(json);
             shp.userName = authResponse.usuario.nombre;
             shp.token = authResponse.token;
           }
         ).catchError( (e) {
-            print('error en: $e');
             NotificationsService.showSnackbarError('Usuario / Password no valido');
           } );
     }

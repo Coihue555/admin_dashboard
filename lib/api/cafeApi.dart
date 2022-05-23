@@ -23,7 +23,6 @@ class CafeApi {
       return resp.data;
 
     } catch (e) {
-      print(e);
       throw('Error en el GET');
     }
   }
@@ -38,7 +37,6 @@ class CafeApi {
       return resp.data;
 
     } catch (e) {
-      print(e);
       throw('Error en el POST');
     }
   }
@@ -53,7 +51,6 @@ class CafeApi {
       return resp.data;
 
     } catch (e) {
-      print(e);
       throw('Error en el PUT');
     }
   }
@@ -68,7 +65,6 @@ class CafeApi {
       return resp.data;
 
     } catch (e) {
-      print(e);
       throw('Error en el Delete');
     }
   }
