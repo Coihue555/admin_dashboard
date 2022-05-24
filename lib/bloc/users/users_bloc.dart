@@ -50,12 +50,12 @@ class UsersBloc extends Bloc<UsersEvent, UsersState> {
 
       finalUsers.add(user);
       
-      emit(state.copyWith(
-        isLoading: false,
-        users: finalUsers,
-        isWorking: false,
-        accion: 'OnGetUserByIdEvent'
-      ));
+    emit(state.copyWith(
+      isLoading: false,
+      users: finalUsers,
+      isWorking: false,
+      accion: 'OnGetUserByIdEvent'
+    ));
   }
 
 
