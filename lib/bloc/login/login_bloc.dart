@@ -85,14 +85,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _onCheckLoginDataEvent(OnCheckLoginDataEvent event, Emitter emit) async {
     
     AuthStatus authStatus = state.authStatus;
-    Usuario user;
     String email;
     String currentPage = LocalStorage().currentPage;
 
     try {
       final resp = await CafeApi.httpGet('/auth');
       final authResponse = AuthResponse.fromMap(resp);
-      user = authResponse.usuario;
       email = authResponse.usuario.correo;
       authStatus = AuthStatus.authenticated;
       LocalStorage.prefs.setString('currentPage', currentPage);

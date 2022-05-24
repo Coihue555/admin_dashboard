@@ -13,5 +13,6 @@ class OnCloseMenu extends SidemenuEvent{
 
 class OnCurrentPage extends SidemenuEvent{
   final String currentPage;
-  OnCurrentPage({required this.currentPage});
+  final String? userID;
+  OnCurrentPage(this.userID, {required this.currentPage});
 }
