@@ -35,7 +35,7 @@ class _SidebarState extends State<Sidebar> {
           CustomMenuItem(
             isActive: LocalStorage().currentPage == Flurorouter.dashboardRoute,
             text: 'Dashboard', icon: Icons.compass_calibration_outlined, onPressed: () {
-            context.read<SidemenuBloc>().add(OnCurrentPage('', currentPage: Flurorouter.dashboardRoute));
+            context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.dashboardRoute));
           },),
           CustomMenuItem(text: 'Orders', icon: Icons.ramen_dining, onPressed: () {
             context.read<SidemenuBloc>().add(OnCloseMenu());
@@ -46,7 +46,7 @@ class _SidebarState extends State<Sidebar> {
           CustomMenuItem(
             isActive: LocalStorage().currentPage == Flurorouter.categoriesRoute,
             text: 'Categories', icon: Icons.layers_outlined, onPressed: () {
-            context.read<SidemenuBloc>().add(OnCurrentPage('', currentPage: Flurorouter.categoriesRoute));
+            context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.categoriesRoute));
           },),
           CustomMenuItem(text: 'Products', icon: Icons.dashboard_outlined, onPressed: () {
             context.read<SidemenuBloc>().add(OnCloseMenu());
@@ -57,14 +57,14 @@ class _SidebarState extends State<Sidebar> {
           CustomMenuItem(
             isActive: LocalStorage().currentPage == Flurorouter.usersRoute,
             text: 'Users', icon: Icons.people_alt_outlined, onPressed: () {
-            context.read<SidemenuBloc>().add(OnCurrentPage('', currentPage: Flurorouter.usersRoute));
+            context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.usersRoute));
           },),
           const SizedBox(height: 30,),
           const TextSeparator(text: 'UI Elements'),
           CustomMenuItem(
             isActive: LocalStorage().currentPage == Flurorouter.iconsRoute,
             text: 'Icons', icon: Icons.list_alt_outlined, onPressed: () {
-            context.read<SidemenuBloc>().add(OnCurrentPage('', currentPage: Flurorouter.iconsRoute));
+            context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.iconsRoute));
           },),
           CustomMenuItem(text: 'Marketing', icon: Icons.mark_email_read_outlined, onPressed: () {
             context.read<SidemenuBloc>().add(OnCloseMenu());
@@ -75,7 +75,7 @@ class _SidebarState extends State<Sidebar> {
           CustomMenuItem(
             isActive: state.currentPage == Flurorouter.blankRoute,
             text: 'Blank', icon: Icons.post_add_outlined, onPressed: () {
-            context.read<SidemenuBloc>().add(OnCurrentPage('', currentPage: Flurorouter.blankRoute));
+            context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.blankRoute));
           },),
 
           const SizedBox(height: 50,),

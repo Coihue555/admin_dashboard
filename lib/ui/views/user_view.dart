@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:admin_dashboard/bloc/blocs.dart';
-import 'package:admin_dashboard/models/usuario.dart';
 import 'package:admin_dashboard/ui/inputs/custom_inputs.dart';
+import 'package:flutter/material.dart';
+import 'package:admin_dashboard/models/usuario.dart';
 import 'package:admin_dashboard/ui/cards/white_card.dart';
 import 'package:admin_dashboard/ui/labels/custom_labels.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class UserView extends StatefulWidget {
   final String uid;
@@ -16,31 +16,25 @@ class UserView extends StatefulWidget {
 }
 
 class _UserViewState extends State<UserView> {
+  Usuario? user;
 
   @override
   void initState() {
-    
-    super.initState();
-
+    super.initState();  
   }
 
   @override
   Widget build(BuildContext context) {
-    List<Usuario> userBloc;
     
     return BlocConsumer<UsersBloc, UsersState>(
       listener: (context, state){
-        
-      },
-      builder: (context, state){
         if (state.accion == 'OnGetUserByIdEvent' )
         {
-          userBloc = state.users;
-        } else {
-          userBloc = [];
+          final List<Usuario> userBloc = state.users;
         }
-        print('averrr');
-        print(userBloc.first.nombre);
+      },
+      builder: (context, state){
+
         return Container(
           padding: const EdgeInsets.symmetric( horizontal: 20, vertical: 10),
           child: ListView(
@@ -49,7 +43,7 @@ class _UserViewState extends State<UserView> {
               Text('User View', style: CustomLabels.h1,),
               const SizedBox( height: 10),
 
-              if( userBloc.isEmpty)
+              if( state.users.first.nombre == null)
               WhiteCard(
                   child: Container(
                     alignment: Alignment.center,
@@ -57,8 +51,7 @@ class _UserViewState extends State<UserView> {
                     child: const CircularProgressIndicator(),
                   )
                 ),
-              _UserViewBody(userBody: userBloc.first,),
-              
+              _UserViewBody(),
             ],
           ),
         );
@@ -68,9 +61,6 @@ class _UserViewState extends State<UserView> {
 }
 
 class _UserViewBody extends StatelessWidget {
-  final Usuario userBody;
-
-  const _UserViewBody({required this.userBody});
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +75,7 @@ class _UserViewBody extends StatelessWidget {
               _AvatarContainer(),
 
               //Formulario de actualizacion 
-              _UserViewForm( userViewForm: userBody,)
+              _UserViewForm()
             ]
           )
         ],
@@ -94,74 +84,36 @@ class _UserViewBody extends StatelessWidget {
   }
 }
 
-class _UserViewForm extends StatefulWidget {
-  final Usuario userViewForm;
+class _UserViewForm extends StatelessWidget {
 
-  const _UserViewForm({required this.userViewForm});
-
-  @override
-  State<_UserViewForm> createState() => _UserViewFormState();
-}
-
-class _UserViewFormState extends State<_UserViewForm> {
-
-  
   @override
   Widget build(BuildContext context) {
-    
-    return BlocConsumer<UsersBloc, UsersState>(
-      listener: (context, state){
-
-      },
-      builder: (context, state){
-        
-        return WhiteCard(
-          title: 'Informacion general',
-          child: Form(
-            autovalidateMode: AutovalidateMode.always,
-            child: Column(
-              children: [
-                TextFormField(
-                  initialValue: widget.userViewForm.nombre,
-                  decoration: CustomInputs.formInputDecoration(
-                    hint: 'Nombre del usuario',
-                    label: 'Nombre',
-                    icon: Icons.supervised_user_circle_outlined
-                  ),
-                ),
-                const SizedBox(height: 20,),
-                TextFormField(
-                  initialValue: widget.userViewForm.correo,
-                  decoration: CustomInputs.formInputDecoration(
-                    hint: 'Correo del usuario',
-                    label: 'Correo',
-                    icon: Icons.markunread_mailbox_outlined
-                  ),
-                ),
-                const SizedBox(height: 20,),
-                ConstrainedBox(
-                  constraints: const BoxConstraints(maxWidth: 110),
-                  child: ElevatedButton(
-                    onPressed:(){},
-                    style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                      shadowColor: MaterialStateProperty.all(Colors.transparent),
-                    ),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: const [
-                        Icon(Icons.save_outlined, size: 20),
-                        Text('  Guardar')
-                      ]
-                    ),
-                  ),
-                )
-
-              ],
+    return WhiteCard(
+      title: 'Informacion general',
+      child: Form(
+        //TODO key: ,
+        autovalidateMode: AutovalidateMode.always,
+        child: Column(
+          children: [
+            TextFormField(
+              decoration: CustomInputs.formInputDecoration(
+                hint: 'Nombre del usuario',
+                label: 'Nombre',
+                icon: Icons.supervised_user_circle_outlined
+              ),
             ),
-          )
-        );
-      },
+            const SizedBox(height: 20,),
+            TextFormField(
+              decoration: CustomInputs.formInputDecoration(
+                hint: 'Correo del usuario',
+                label: 'Correo',
+                icon: Icons.markunread_mailbox_outlined
+              ),
+            ),
+
+          ],
+        ),
+      )
     );
   }
 }

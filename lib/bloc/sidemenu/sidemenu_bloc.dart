@@ -44,11 +44,7 @@ class SidemenuBloc extends Bloc<SidemenuEvent, SidemenuState> {
     ));
 
     final shp = LocalStorage();
-    shp.userID = event.userID!;
-
-    (shp.userID.isNotEmpty)
-    ? shp.currentPage = event.currentPage + event.userID!
-    : shp.currentPage;
+    shp.currentPage = event.currentPage;
 
     
     NavigationService.replaceTo(shp.currentPage);

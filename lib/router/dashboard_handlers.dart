@@ -85,9 +85,9 @@ class DashboardHandlers {
         return BlocBuilder<LoginBloc, LoginState>(
           builder: (context, state) {
             if(state.authStatus == AuthStatus.authenticated){
+              print(params);
               if (params['uid']?.first != null){
-                //context.read<UsersBloc>().add(OnGetUserByIdEvent(uid: params['uid']!.first.replaceAll(':uid','')));
-              return UserView(uid: params['uid']!.first.replaceAll(':uid',''));
+              return UserView(uid: params['uid']!.first);
               } else{
                 return UsersView();
               }

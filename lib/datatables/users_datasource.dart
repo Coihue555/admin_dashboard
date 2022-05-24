@@ -34,7 +34,8 @@ class UsersDataSource extends DataTableSource{
               icon: const Icon(Icons.edit_outlined),
               onPressed: (){
                 context.read<UsersBloc>().add(OnGetUserByIdEvent(uid: user.uid));
-                context.read<SidemenuBloc>().add(OnCurrentPage(user.uid, currentPage: Flurorouter.userRoute));
+                NavigationService.replaceTo('/dashboard/users/${user.uid}');
+                //context.read<SidemenuBloc>().add(OnCurrentPage(currentPage: Flurorouter.userRoute));
                 //TODO: cuando recargo la pagina no queda guardado el id de usuario/la pagina
               },
             ),

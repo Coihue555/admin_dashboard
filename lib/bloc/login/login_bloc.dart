@@ -34,7 +34,6 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     String email = '';
     String password = '';
     bool isLogged = false;
-    String token = '';
     AuthStatus authStatus;
     
 
@@ -60,30 +59,16 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     };
 
 
-  CafeApi.post('/auth/login', data).then(
-      (json) {
-        final authResponse = AuthResponse.fromMap(json);
-        LocalStorage().token = authResponse.token;
-        shp.userName = authResponse.usuario.nombre;
-        email = authResponse.usuario.correo;
-      }
-    ).catchError( (e) {
-        error = 'Algo fallo en el postRequest';
-        campoError = 'http'; 
-      } );
-
-    token = LocalStorage().token;
-    if(error.isEmpty) {
-      authStatus = AuthStatus.authenticated;
-      NavigationService.replaceTo(Flurorouter.dashboardRoute);
-    } else {
-      authStatus = AuthStatus.notAuthenticated;
-      NavigationService.replaceTo(Flurorouter.dashboardRoute);
-      NotificationsService.showSnackbarError('Usuario o contraseña invalidos');
-    }
-
+    final resp = await CafeApi.post('/auth/login', data);
+    final authResponse = AuthResponse.fromMap(resp);
+    shp.token = authResponse.token;
+    shp.userName = authResponse.usuario.nombre;
+    email = authResponse.usuario.correo;
+    (shp.token.isNotEmpty ) ? authStatus = AuthStatus.authenticated : authStatus = AuthStatus.notAuthenticated;
+    
     CafeApi.configureDio();
 
+    
     emit(state.copyWith(
       isWorking: false,
       error: error,
@@ -92,7 +77,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
       email: email,
       password: password,
       isLogged: isLogged,
-      token: token,
+      token: shp.token,
       authStatus: authStatus,
     ));
   }

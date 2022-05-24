@@ -1,3 +1,4 @@
+import 'package:admin_dashboard/services/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:admin_dashboard/bloc/login/login_bloc.dart';
@@ -25,8 +26,8 @@ class _LoginViewState extends State<LoginView> {
           listenWhen: (previous, current) => !current.isWorking,
           listener: (context, state) {
             
-            if(state.error.isEmpty && state.isLogged){
-              print('Logueado');
+            if(state.error.isEmpty && state.accion=='OnValidateEvent'){
+              NavigationService.replaceTo(Flurorouter.dashboardRoute);
             }
           },)
       ],
