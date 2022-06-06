@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:dio/dio.dart';
 import 'package:admin_dashboard/services/services.dart';
 
@@ -8,7 +10,9 @@ class CafeApi {
   static void configureDio(){
 
     //Base del url
-    _dio.options.baseUrl = 'http://localhost:8080/api';
+    //_dio.options.baseUrl = 'http://localhost:8080/api';
+    //Produccion
+    _dio.options.baseUrl = 'https://fl-admin-web.herokuapp.com/api';
 
     //Configurar Headers
     _dio.options.headers = {
@@ -22,7 +26,8 @@ class CafeApi {
       final resp = await _dio.get(path);
       return resp.data;
 
-    } catch (e) {
+    } on DioError catch (e) {
+      print(e.response);
       throw('Error en el GET');
     }
   }
@@ -52,6 +57,23 @@ class CafeApi {
 
     } catch (e) {
       throw('Error en el PUT');
+    }
+  }
+
+  static Future uploadFile(String path, Uint8List bytes) async {
+
+    final formData = FormData.fromMap({
+      'archivo': MultipartFile.fromBytes(bytes)
+    });
+
+    try {
+      
+      final resp = await _dio.put(path, data: formData);
+      return resp.data;
+
+    } on DioError catch (e) {
+      print(e);
+      throw('Error en el UploadFile $e');
     }
   }
 

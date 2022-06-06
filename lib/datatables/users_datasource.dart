@@ -18,13 +18,16 @@ class UsersDataSource extends DataTableSource{
   DataRow getRow(int index) {
 
   final user = users[index];
-  const image = Image(image: AssetImage('no-image.jpg'), width: 35, height: 35,);
+  //const image = Image(image: AssetImage('no-image.jpg'), width: 35, height: 35,);
+  Widget image = (users[index].img == null)
+          ? const Image(image: AssetImage('no-image.jpg'), width: 35, height: 35,)
+          : Image.network(users[index].img!, width: 35, height: 35,);
 
 
     return DataRow.byIndex(
       index: index,
       cells: [
-        const DataCell(ClipOval(child: image,)),
+        DataCell(ClipOval(child: image,)),
         DataCell(Text(user.nombre)),
         DataCell(Text(user.correo)),
         DataCell(Text(user.uid)),
@@ -33,10 +36,8 @@ class UsersDataSource extends DataTableSource{
             IconButton(
               icon: const Icon(Icons.edit_outlined),
               onPressed: (){
-                context.read<UsersBloc>().add(OnGetUserByIdEvent(uid: user.uid));
                 NavigationService.replaceTo('/dashboard/users/${user.uid}');
                 context.read<SidemenuBloc>().add(OnCurrentPage(user.uid, currentPage: Flurorouter.userRoute));
-                //TODO: cuando recargo la pagina no queda guardado el id de usuario/la pagina
               },
             ),
             IconButton(

@@ -1,9 +1,8 @@
-import 'package:admin_dashboard/models/usuario.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
 import 'package:admin_dashboard/api/cafeApi.dart';
+import 'package:admin_dashboard/models/usuario.dart';
 import 'package:admin_dashboard/models/http/auth_response.dart';
-import 'package:admin_dashboard/router/router.dart';
 import 'package:admin_dashboard/services/services.dart';
 
 part 'login_event.dart';
@@ -85,12 +84,14 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   Future<void> _onCheckLoginDataEvent(OnCheckLoginDataEvent event, Emitter emit) async {
     
     AuthStatus authStatus = state.authStatus;
+    Usuario user;
     String email;
     String currentPage = LocalStorage().currentPage;
 
     try {
       final resp = await CafeApi.httpGet('/auth');
       final authResponse = AuthResponse.fromMap(resp);
+      user = authResponse.usuario;
       email = authResponse.usuario.correo;
       authStatus = AuthStatus.authenticated;
       LocalStorage.prefs.setString('currentPage', currentPage);
